@@ -18,7 +18,8 @@ def train_policy_gradients(game_spec,
                            learn_rate=1e-4,
                            batch_size=100,
                            randomize_first_player=True,
-						   plot_stats = True):
+						   plot_stats = False,
+						   clear_screen_every = 20):
     """Train a network using policy gradients
 
     Args:
@@ -124,7 +125,9 @@ def train_policy_gradients(game_spec,
                 
                 # red dashes, blue squares and green triangles
                 plt.plot(episode_count, episode_win, 'r', episode_count, episode_wrong_moves, 'g')
-                plt.show()	   
+                plt.show()
+                if( (episode_number // print_results_every)%20 == 0 ):
+                    os.system('cls')				
 
                 print("episode: %s win_rate: %s illegal_moves: %s" % (episode_number, _win_rate(print_results_every, results),mini_batch_illegal_moves))
                 mini_batch_illegal_moves = 0
